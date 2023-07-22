@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="maindivider" style="flex-grow: 1; justify-content: center; align-items: center; flex-direction: row; flex-wrap: wrap; flex-shrink: 0; height: 1080px; width: 1920px; display: flex; position: relative;">
+        <ui:VisualElement name="dividerupgrade" style="flex-wrap: nowrap; height: 100%; width: 30%; justify-content: center; align-items: center; flex-direction: column; display: flex; position: absolute; left: 30px;">
+            <ui:Label text="Upgrade Level: 1" display-tooltip-when-elided="true" name="textupgradelevel" style="font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
+            <ui:Button text="Upgrade Click" display-tooltip-when-elided="true" focusable="true" name="buttonupgrade" style="width: 50%; height: 5%; font-size: 24px; -unity-font-style: bold; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;" />
+            <ui:Label text="Upgrade Cost: 1" display-tooltip-when-elided="true" name="textupgradecost" style="font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="dividermain" style="flex-wrap: nowrap; height: 100%; width: 30%; justify-content: center; align-items: center; display: flex;">
+            <ui:Label text="Click Points: 1" display-tooltip-when-elided="true" name="textclickpoints" style="font-size: 48%; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; justify-content: center; align-items: center; color: rgb(255, 255, 255);" />
+            <ui:Button text="Click Me!" display-tooltip-when-elided="true" name="buttonclicker" style="width: 90%; height: 8%; font-size: 48px; -unity-font-style: bold; border-top-left-radius: 24px; border-bottom-left-radius: 24px; border-top-right-radius: 24px; border-bottom-right-radius: 24px;" />
+            <ui:Label text="Points per Click: 1" display-tooltip-when-elided="true" name="textclickgenerate" style="font-size: 35%; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
+            <ui:Label text="Auto Click per Second: 1" display-tooltip-when-elided="true" name="textautoclicksecond" style="font-size: 35%; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="dividerautoclick" style="flex-wrap: nowrap; height: 100%; width: 30%; justify-content: center; align-items: center; display: flex; position: absolute; right: 30px;">
+            <ui:Label text="Auto Click Level: 1" display-tooltip-when-elided="true" name="textautoclicklevel" style="font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
+            <ui:Button text="Auto Click Upgrade" display-tooltip-when-elided="true" focusable="true" name="buttonautoclick" style="width: 50%; height: 5%; font-size: 24px; -unity-font-style: bold; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;" />
+            <ui:Label text="Auto Click Cost: 1" display-tooltip-when-elided="true" name="textautoclickcost" style="font-size: 24px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
