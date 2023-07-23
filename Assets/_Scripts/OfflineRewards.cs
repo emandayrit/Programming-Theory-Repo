@@ -32,6 +32,7 @@ public class OfflineRewards : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetString("LAST_LOGIN",DateTime.Now.ToString());
+        PlayerPrefs.Save();
         Debug.Log($"Closing the program {Time.time}");
     }
 
@@ -39,13 +40,16 @@ public class OfflineRewards : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("LAST_LOGIN"))
         {
+            GameManager.manager.hasSaveProgress = true;
             DateTime lastLogin = DateTime.Parse(PlayerPrefs.GetString("LAST_LOGIN"));
             TimeSpan span = DateTime.Now - lastLogin;
 
-            Debug.Log(withSave + $"{span.TotalSeconds * pointsMultiplier}/Points");
+            GameManager.manager._offlineReward = span.TotalSeconds * pointsMultiplier;
+            Debug.Log(withSave + $"{GameManager.manager.FormattedNumber(GameManager.manager._offlineReward)}/Points");
         }
         else
         {
+            GameManager.manager.hasSaveProgress = false;
             Debug.Log(noSave);
         }
     }
