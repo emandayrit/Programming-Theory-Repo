@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] AudioSource audio;
+    [SerializeField] AudioSource audioSource;
 
     UIDocument _uiDocument;
     VisualElement _mainDivider;
@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
 
     void ButtonClicker()
     {
-        audio.Play();
+        PlaySFXClick();
         _dividerUpgrade.style.display = DisplayStyle.Flex;
 
         GameManager.manager._clickCounter += GameManager.manager._clickPoints;
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.manager._clickCounter >= GameManager.manager._upgradeCost)
         {
-            audio.Play();
+            PlaySFXClick();
             GameManager.manager.SetNextUpgrade();
 
             _textClickPoints.text = $"Click Points: {GameManager.manager.FormattedNumber(GameManager.manager._clickCounter)}";
@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.manager._clickCounter >= GameManager.manager._clickAutoCost)
         {
-            audio.Play();
+            PlaySFXClick();
             GameManager.manager.SetNextAutoClick();
 
             _textClickPoints.text = $"Click Points: {GameManager.manager.FormattedNumber(GameManager.manager._clickCounter)}";
@@ -111,6 +111,11 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Not Enough Points!");
         }
+    }
+
+    void PlaySFXClick()
+    {
+        audioSource.Play();
     }
 
     void InitializeComponents()
