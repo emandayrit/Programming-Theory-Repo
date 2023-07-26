@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager manager;
 
+    #region make this data encapsulation
     public double _clickCounter = 0;
     public double _clickPoints = 1;
     public double _clickAutoPoints = 0;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     private double _upgradeCostMultiplier = 1.15f;
     private double _clickAutoMultiplier = 1.53f;
     private double _clickMultiplier = 2;
+    #endregion
 
     private void Awake()
     {
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region Do an abstration for this codes
     public void SetNextUpgrade()
     {
         _clickCounter -= _upgradeCost;
@@ -78,5 +81,5 @@ public class GameManager : MonoBehaviour
 
         return $"{absNumber:F2}{suffixes[index]}"; 
     }
-
+    #endregion
 }

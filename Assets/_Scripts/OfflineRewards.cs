@@ -6,11 +6,9 @@ using System;
 
 public class OfflineRewards : MonoBehaviour
 {
-    private string noSave = "You have no save yet. But Welcome!";
-    private string withSave = "Welcome back! Your points earned: ";
     private double pointsMultiplier = 1f;
 
-    private void Start()
+    private void Awake()
     {
         SavePrefs();
     }
@@ -33,7 +31,6 @@ public class OfflineRewards : MonoBehaviour
     {
         PlayerPrefs.SetString("LAST_LOGIN",DateTime.Now.ToString());
         PlayerPrefs.Save();
-        Debug.Log($"Closing the program {Time.time}");
     }
 
     void SavePrefs()
@@ -45,12 +42,11 @@ public class OfflineRewards : MonoBehaviour
             TimeSpan span = DateTime.Now - lastLogin;
 
             GameManager.manager._offlineReward = span.TotalSeconds * pointsMultiplier;
-            Debug.Log(withSave + $"{GameManager.manager.FormattedNumber(GameManager.manager._offlineReward)}/Points");
+            Debug.Log($"{GameManager.manager.FormattedNumber(GameManager.manager._offlineReward)} Points");
         }
         else
         {
             GameManager.manager.hasSaveProgress = false;
-            Debug.Log(noSave);
         }
     }
 }

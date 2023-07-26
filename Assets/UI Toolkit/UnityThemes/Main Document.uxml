@@ -16,7 +16,7 @@
             <ui:Label text="Points per Click: 1" display-tooltip-when-elided="true" name="textclickgenerate" style="font-size: 35%; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
             <ui:Label text="Auto Click per Second: 1" display-tooltip-when-elided="true" name="textautoclicksecond" style="font-size: 35%; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
-        <ui:VisualElement name="dividerofflinereward" style="flex-grow: 0; height: 724px; width: 536px; background-color: rgb(137, 137, 137); justify-content: center; align-items: center; border-top-left-radius: 30px; border-bottom-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px;">
+        <ui:VisualElement name="dividerofflinereward" style="flex-grow: 0; height: 724px; width: 536px; background-color: rgb(137, 137, 137); justify-content: center; align-items: center; border-top-left-radius: 30px; border-bottom-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; display: flex;">
             <ui:Label text="Welcome Back!" display-tooltip-when-elided="true" name="textofflinewelcome" style="font-size: 36px; -unity-font-style: bold; -unity-text-align: middle-center;" />
             <ui:Label text="Your Offline Reward:" display-tooltip-when-elided="true" name="textofflinereward1" style="font-size: 36px; -unity-font-style: bold; -unity-text-align: middle-center;" />
             <ui:Label text="0 Points" display-tooltip-when-elided="true" name="textofflinereward2" style="font-size: 36px; -unity-font-style: bold; -unity-text-align: middle-center; color: rgb(168, 0, 0);" />
