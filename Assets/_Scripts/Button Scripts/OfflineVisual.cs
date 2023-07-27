@@ -15,7 +15,7 @@ public class OfflineVisual : ButtonBehavior
     //POLYMORPHISM
     protected override void UIBehavior(ClickEvent evt)
     {
-        GameManager.manager._clickCounter += GameManager.manager._offlineReward;
+        GameManager.manager.clickPoints += GameManager.manager.offlinePoints;
 
         manager.SetButtonBehaviors(manager.SetPointsUI);
         manager._dividerOffline.style.display = DisplayStyle.None;
@@ -23,7 +23,7 @@ public class OfflineVisual : ButtonBehavior
 
     void SetOfflineSavePrefs()
     {
-        if (GameManager.manager.hasSaveProgress == true)
+        if (GameManager.manager.hasSavePref == true)
         {
             manager._dividerOffline.style.display = DisplayStyle.Flex;
         }

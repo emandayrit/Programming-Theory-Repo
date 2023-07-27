@@ -13,7 +13,7 @@ public class ClickButton : ButtonBehavior
     //POLYMORPHISM
     protected override void UIBehavior()
     {
-        GameManager.manager._clickCounter += GameManager.manager._clickPoints;
+        GameManager.manager.clickPoints += GameManager.manager.clickValue;
 
         manager.SetButtonBehaviors(manager.SetPointsUI);
     }

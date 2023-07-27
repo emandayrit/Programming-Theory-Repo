@@ -16,9 +16,9 @@ public class AutoButton : ButtonBehavior
     //POLYMORPHISM
     protected override void UIBehavior()
     {
-        if (GameManager.manager._clickCounter >= GameManager.manager._clickAutoCost)
+        if (GameManager.manager.clickPoints >= GameManager.manager.autoCost)
         {
-            GameManager.manager.SetNextAutoClick();
+            GameManager.manager.SetAutoCost();
 
             manager.SetButtonBehaviors(manager.SetAutoUI);
         }
@@ -28,11 +28,11 @@ public class AutoButton : ButtonBehavior
     {
         while (true)
         {
-            if (GameManager.manager.isAutoClickEnable)
+            if (GameManager.manager.isAutoEnable)
             {
                 yield return new WaitForSeconds(1f);
 
-                GameManager.manager._clickCounter += GameManager.manager._clickAutoPoints;
+                GameManager.manager.clickPoints += GameManager.manager.clickAutoValue;
                 manager.SetPointsUI();
             }
             else

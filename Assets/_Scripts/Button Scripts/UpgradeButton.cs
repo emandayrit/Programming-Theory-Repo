@@ -13,9 +13,9 @@ public class UpgradeButton : ButtonBehavior
     //POLYMORPHISM
     protected override void UIBehavior()
     {
-        if (GameManager.manager._clickCounter >= GameManager.manager._upgradeCost)
+        if (GameManager.manager.clickPoints >= GameManager.manager.upgradeCost)
         {
-            GameManager.manager.SetNextUpgrade();
+            GameManager.manager.SetUpgradeCost();
 
             manager.SetButtonBehaviors(manager.SetUpgradeUI);
         }

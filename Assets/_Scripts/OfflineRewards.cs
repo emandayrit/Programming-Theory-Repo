@@ -6,26 +6,11 @@ using System;
 
 public class OfflineRewards : MonoBehaviour
 {
-    private double pointsMultiplier = 1f;
+    [SerializeField] double pointsMultiplier = 1.5f;
 
-    private void Awake()
-    {
-        SavePrefs();
-    }
+    private void Awake() => SavePrefs();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-#if UNITY_EDITOR
-            Debug.Log("Call this for editor.");
-            UnityEditor.EditorApplication.ExitPlaymode();
-#else
-            Debug.Log("Game was quitted.");
-            Application.Quit();
-#endif
-        }
-    }
+    private void Update() => ExitKeyPress();
 
     private void OnApplicationQuit()
     {
@@ -33,20 +18,36 @@ public class OfflineRewards : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    //ENCAPSULATION
+    void ExitKeyPress()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            #if UNITY_EDITOR
+            Debug.Log("Call this for editor.");
+            UnityEditor.EditorApplication.ExitPlaymode();
+            #else
+            Debug.Log("Game was quitted.");
+            Application.Quit();
+            #endif
+        }
+    }
+    
+    //ENCAPSULATION
     void SavePrefs()
     {
         if (PlayerPrefs.HasKey("LAST_LOGIN"))
         {
-            GameManager.manager.hasSaveProgress = true;
+            GameManager.manager.hasSavePref = true;
             DateTime lastLogin = DateTime.Parse(PlayerPrefs.GetString("LAST_LOGIN"));
             TimeSpan span = DateTime.Now - lastLogin;
 
-            GameManager.manager._offlineReward = span.TotalSeconds * pointsMultiplier;
-            Debug.Log($"{GameManager.manager.FormattedNumber(GameManager.manager._offlineReward)} Points");
+            GameManager.manager.offlinePoints = span.TotalSeconds * pointsMultiplier;
+            Debug.Log($"{GameManager.manager.SetNotate(GameManager.manager.offlinePoints)} Points");
         }
         else
         {
-            GameManager.manager.hasSaveProgress = false;
+            GameManager.manager.hasSavePref = false;
         }
     }
 }

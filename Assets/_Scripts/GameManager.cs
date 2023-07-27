@@ -1,31 +1,35 @@
 using System;
 using UnityEngine;
 
+//INHERITANCE & SINGLETON
 public class GameManager : MonoBehaviour
 {
     public static GameManager manager;
 
     #region make this data encapsulation
-    public double _clickCounter = 0;
-    public double _clickPoints = 1;
-    public double _clickAutoPoints = 0;
-    public double _upgradeLevel = 0;
-    public double _upgradeCost = 4;
-    public double _clickAutoLevel = 0;
-    public double _clickAutoCost = 1;
+    public double clickPoints = 0;
+    public double clickValue = 1;
+    public double clickAutoValue = 0;
+    public double upgradeLevel = 0;
+    public double upgradeCost = 4;
+    public double autoLevel = 0;
+    public double autoCost = 4;
+    public double offlinePoints = 0;
 
-    public double _offlineReward = 0;
-
-    public bool isAutoClickEnable = false;
-    public bool hasSaveProgress = false;
+    public bool isAutoEnable = false;
+    public bool hasSavePref = false;
 
     private double _upgradeBaseCost = 4;
-    private double _upgradeCostMultiplier = 1.15f;
-    private double _clickAutoMultiplier = 1.53f;
-    private double _clickMultiplier = 2;
+    private double _autoBaseCost = 4;
+    private double _upgradeCostMultiplier = 1.07f;
+    private double _autoCostMultiplier = 1.14f;
+    private double _clickValueMultiplier = 1.8f;
+    private double _autoValueMultiplier = 1.3f;
     #endregion
 
-    private void Awake()
+    private void Awake() => SetSingleton();
+
+    private void SetSingleton()
     {
         if (manager != null && manager != this)
         {
@@ -38,36 +42,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    #region Do an abstration for this codes
-    public void SetNextUpgrade()
+    public void SetUpgradeCost()
     {
-        _clickCounter -= _upgradeCost;
-        _clickCounter = Math.Round(_clickCounter, 2);
-
-        _upgradeLevel++;
-        _upgradeCost = _upgradeBaseCost * Math.Pow(_upgradeCostMultiplier, _upgradeLevel);
-        _upgradeCost = Math.Round(_upgradeCost, 2);
-
-        _clickPoints = _clickMultiplier * _upgradeLevel;
-        _clickPoints = Math.Round(_clickPoints, 2);
+        clickPoints -= upgradeCost;
+        upgradeLevel++;
+        upgradeCost = _upgradeBaseCost * Math.Pow(_upgradeCostMultiplier, upgradeLevel);
+        clickValue = _clickValueMultiplier * upgradeLevel;
+        
+        upgradeCost = Math.Round(upgradeCost, 2);
+        clickPoints = Math.Round(clickPoints, 2);
+        clickValue = Math.Round(clickValue, 2);
     }
 
-    public void SetNextAutoClick()
+    public void SetAutoCost()
     {
-        _clickCounter -= _clickAutoCost;
-        _clickCounter = Math.Round(_clickCounter, 2);
+        clickPoints -= autoCost;
+        autoLevel++;
+        autoCost = _autoBaseCost * Math.Pow(_autoCostMultiplier, autoLevel);
+        clickAutoValue = _autoValueMultiplier * autoLevel;
+        
+        clickPoints = Math.Round(clickPoints, 2);
+        autoCost = Math.Round(autoCost, 2);
+        clickAutoValue = Math.Round(clickAutoValue, 2);
 
-        _clickAutoLevel++;
-        _clickAutoCost = _upgradeBaseCost * Math.Pow(_upgradeCostMultiplier+0.75f, _clickAutoLevel);
-        _clickAutoCost = Math.Round(_clickAutoCost, 2);
-
-        _clickAutoPoints = _clickAutoMultiplier * _clickAutoLevel;
-        _clickAutoPoints = Math.Round(_clickAutoPoints, 2);
-
-        isAutoClickEnable = true;
+        isAutoEnable = true;
     }
 
-    public string FormattedNumber(double _value)
+    public string SetNotate(double _value)
     {
         double absNumber = Math.Abs(_value);
         string[] suffixes = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "Ud", "Dd", "Td", "Qad", "Qid", "Sxd", "Spd", "Ocd", "Nod", "Vg", "Uvg", "XXX" };
@@ -81,5 +82,4 @@ public class GameManager : MonoBehaviour
 
         return $"{absNumber:F2}{suffixes[index]}"; 
     }
-    #endregion
 }

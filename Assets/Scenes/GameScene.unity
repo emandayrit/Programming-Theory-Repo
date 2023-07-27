@@ -168,16 +168,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc036a8fe93b038449f0469eb8adcb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clickCounter: 0
-  _clickPoints: 1
-  _clickAutoPoints: 0
-  _upgradeLevel: 0
-  _upgradeCost: 4
-  _clickAutoLevel: 0
-  _clickAutoCost: 1
-  _offlineReward: 0
-  isAutoClickEnable: 0
-  hasSaveProgress: 0
+  clickPoints: 0
+  clickValue: 1
+  clickAutoValue: 0
+  upgradeLevel: 0
+  upgradeCost: 4
+  autoLevel: 0
+  autoCost: 4
+  offlinePoints: 0
+  isAutoEnable: 0
+  hasSavePref: 0
 --- !u!114 &328049523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e064a9edc1387fe488b296f200b1e28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointsMultiplier: 1.5
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

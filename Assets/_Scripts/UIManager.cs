@@ -2,43 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+//ABSTRACTION
 [RequireComponent(typeof(UIDocument))]
-public class UIManager : MonoBehaviour
+public class UIManager : UIManagerBase
 {
-    AudioSource _audioSource;
-    UIDocument _uiDocument;
-    VisualElement _mainDivider;
-
-//ENCAPSULATION
-#region Main Button Visual
-    VisualElement _dividerMain;
-    public Button _buttonMain { get; private set; }
-    Label _textPoints;
-    Label _textValue;
-    Label _textAutoValue;
-#endregion
-
-#region Upgrade Visual
-    VisualElement _dividerUpgrade;
-    public Button _buttonUpgrade { get; private set; }
-    Label _textUpgradeLevel;
-    Label _textUpgradeCost;
-#endregion
-
-#region Auto Click Visual
-    VisualElement _dividerAuto;
-    public Button _buttonAuto { get; private set; }
-    Label _textAutoLevel;
-    Label _textAutoCost;
-#endregion
-
-#region Offline Visual
-    public VisualElement _dividerOffline { get; private set; }
-    Label _textOfflineWelcome;
-    Label _textOfflineMessage;
-    Label _textOfflineReward;
-#endregion
-
     private void Awake()
     {
         InitializeComponents();
@@ -73,13 +40,13 @@ public class UIManager : MonoBehaviour
     private void CheckUnlockableButton()
     {
         //for upgrade click event
-        if (GameManager.manager._clickCounter >= GameManager.manager._upgradeCost)
+        if (GameManager.manager.clickPoints >= GameManager.manager.upgradeCost)
         {
             _dividerUpgrade.style.display = DisplayStyle.Flex;
         }
 
         //for auto-click event
-        if (GameManager.manager._clickCounter >= GameManager.manager._clickAutoCost && GameManager.manager._upgradeLevel >= 10)
+        if (GameManager.manager.clickPoints >= GameManager.manager.autoCost && GameManager.manager.upgradeLevel >= 10)
         {
             _dividerAuto.style.display = DisplayStyle.Flex;
             _textAutoValue.style.display = DisplayStyle.Flex;
@@ -89,18 +56,47 @@ public class UIManager : MonoBehaviour
     {
         _audioSource.Play();
     }
+}
+
+//ENCAPSULATION
+public class UIManagerBase : MonoBehaviour
+{
+    protected AudioSource _audioSource;
+    protected UIDocument _uiDocument;
+    protected VisualElement _mainDivider;
+
+    protected VisualElement _dividerMain;
+    protected Label _textPoints;
+    protected Label _textValue;
+    protected Label _textAutoValue;
+
+    protected VisualElement _dividerUpgrade;
+    protected Label _textUpgradeLevel;
+    protected Label _textUpgradeCost;
+
+    protected VisualElement _dividerAuto;
+    protected Label _textAutoLevel;
+    protected Label _textAutoCost;
+    protected Label _textOfflineWelcome;
+    protected Label _textOfflineMessage;
+    protected Label _textOfflineReward;
+    public Button _buttonMain { get; private set; }
+    public Button _buttonUpgrade { get; private set; }
+    public Button _buttonAuto { get; private set; }
+
+    public VisualElement _dividerOffline { get; private set; }
 
 
     //ENCAPSULATION
     #region Initialization Components
 
-    void SetUIDocuments()
+    protected void SetUIDocuments()
     {
         _uiDocument = GetComponent<UIDocument>();
         _mainDivider = _uiDocument.rootVisualElement;
     }
 
-    void SetMainButton()
+    protected void SetMainButton()
     {
         _dividerMain = _mainDivider.Q<VisualElement>("dividermain");
         _buttonMain = _dividerMain.Q<Button>("buttonclicker");
@@ -111,7 +107,7 @@ public class UIManager : MonoBehaviour
         _textAutoValue.style.display = DisplayStyle.None;
     }
 
-    void SetUpgradeButton()
+    protected void SetUpgradeButton()
     {
         _dividerUpgrade = _mainDivider.Q<VisualElement>("dividerupgrade");
         _buttonUpgrade = _dividerUpgrade.Q<Button>("buttonupgrade");
@@ -121,7 +117,7 @@ public class UIManager : MonoBehaviour
         _dividerUpgrade.style.display = DisplayStyle.None;
     }
 
-    void SetAutoButton()
+    protected void SetAutoButton()
     {
         _dividerAuto = _mainDivider.Q<VisualElement>("dividerautoclick");
         _buttonAuto = _dividerAuto.Q<Button>("buttonautoclick");
@@ -131,7 +127,7 @@ public class UIManager : MonoBehaviour
         _dividerAuto.style.display = DisplayStyle.None;
     }
 
-    void SetOfflineVisual()
+    protected void SetOfflineVisual()
     {
         _dividerOffline = _mainDivider.Q<VisualElement>("dividerofflinereward");
         _textOfflineWelcome = _mainDivider.Q<Label>("textofflinewelcome");
@@ -145,32 +141,33 @@ public class UIManager : MonoBehaviour
     #region For Label Update
     public void SetPointsUI()
     {
-        _textPoints.text = $"Click Points: {GameManager.manager.FormattedNumber(GameManager.manager._clickCounter)}";
+        _textPoints.text = $"Click Points: {GameManager.manager.SetNotate(GameManager.manager.clickPoints)}";
     }
 
     public void SetUpgradeUI()
     {
-        _textPoints.text = $"Click Points: {GameManager.manager.FormattedNumber(GameManager.manager._clickCounter)}";
-        _textValue.text = $"Points per Click: {GameManager.manager.FormattedNumber(GameManager.manager._clickPoints)}";
+        _textPoints.text = $"Click Points: {GameManager.manager.SetNotate(GameManager.manager.clickPoints)}";
+        _textValue.text = $"Points per Click: {GameManager.manager.SetNotate(GameManager.manager.clickValue)}";
 
-        _textUpgradeLevel.text = $"Upgrade Level: {GameManager.manager.FormattedNumber(GameManager.manager._upgradeLevel)}";
-        _textUpgradeCost.text = $"Upgrade Cost: {GameManager.manager.FormattedNumber(GameManager.manager._upgradeCost)}";
+        _textUpgradeLevel.text = $"Upgrade Level: {GameManager.manager.SetNotate(GameManager.manager.upgradeLevel)}";
+        _textUpgradeCost.text = $"Upgrade Cost: {GameManager.manager.SetNotate(GameManager.manager.upgradeCost)}";
     }
 
     public void SetAutoUI()
     {
-        _textPoints.text = $"Click Points: {GameManager.manager.FormattedNumber(GameManager.manager._clickCounter)}";
+        _textPoints.text = $"Click Points: {GameManager.manager.SetNotate(GameManager.manager.clickPoints)}";
 
-        _textAutoValue.text = $"Auto Click per Second: {GameManager.manager.FormattedNumber(GameManager.manager._clickAutoPoints)}";
-        _textAutoLevel.text = $"Auto Click Level: {GameManager.manager.FormattedNumber(GameManager.manager._clickAutoLevel)}";
-        _textAutoCost.text = $"Auto Click Cost: {GameManager.manager.FormattedNumber(GameManager.manager._clickAutoCost)}";
+        _textAutoValue.text = $"Auto Click per Second: {GameManager.manager.SetNotate(GameManager.manager.clickAutoValue)}";
+        _textAutoLevel.text = $"Auto Click Level: {GameManager.manager.SetNotate(GameManager.manager.autoLevel)}";
+        _textAutoCost.text = $"Auto Click Cost: {GameManager.manager.SetNotate(GameManager.manager.autoCost)}";
     }
 
     public void SetOfflineUI()
     {
         _textOfflineWelcome.text = $"Welcome Back!";
         _textOfflineMessage.text = $"Your offline reward:";
-        _textOfflineReward.text = $"{GameManager.manager.FormattedNumber(GameManager.manager._offlineReward)}";
+        _textOfflineReward.text = $"{GameManager.manager.SetNotate(GameManager.manager.offlinePoints)}";
     }
     #endregion
 }
+
